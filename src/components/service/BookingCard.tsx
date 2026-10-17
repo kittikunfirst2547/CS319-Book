@@ -3,6 +3,7 @@ import type { Service } from "../../types/service";
 import type { Slot } from "../../types/slot";
 import { formatDayPill, formatPrice } from "../../lib/format";
 import { Chip } from "../ui/Chip";
+import { useFavoritesStore, useIsFavorite } from "../../stores/favoritesStore";
 
 type BookingCardProps = {
   service: Service;
@@ -14,6 +15,10 @@ export function BookingCard({ service, slots }: BookingCardProps) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  // Client state (shared, persisted)
+  const isFavorite = useIsFavorite(service.id);
+  const toggleFavorite = useFavoritesStore((state) => state.toggle);
 
   // Derived
   const times = slots.find((s) => s.date === selectedDate)?.times ?? [];
@@ -86,9 +91,14 @@ export function BookingCard({ service, slots }: BookingCardProps) {
         >
           ยืนยันการจอง
         </button>
-        {/* wired to favoritesStore in 1.6 */}
-        <button type="button" className="btn btn-outline btn-primary rounded-xl">
-          <span aria-hidden="true">♡</span> เพิ่มในรายการโปรด
+        <button
+          type="button"
+          aria-pressed={isFavorite}
+          onClick={() => toggleFavorite(service.id)}
+          className="btn btn-outline btn-primary rounded-xl"
+        >
+          <span aria-hidden="true">{isFavorite ? "♥" : "♡"}</span>{" "}
+          {isFavorite ? "ลบออกจากรายการโปรด" : "เพิ่มในรายการโปรด"}
         </button>
       </div>
 

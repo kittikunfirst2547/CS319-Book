@@ -3,6 +3,7 @@ import { CATEGORY_LABELS } from "../../lib/categories";
 import { formatPrice } from "../../lib/format";
 import { ImagePlaceholder } from "./ImagePlaceholder";
 import { Rating } from "./Rating";
+import { HeartButton } from "./HeartButton";
 import { Link } from "react-router";
 
 type ServiceCardProps = {
@@ -31,13 +32,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
           >
             ดูรายละเอียด
           </Link>
-          <button
-            type="button"
-            className="btn btn-circle btn-ghost border border-base-300"
-            aria-label="เพิ่มในรายการโปรด"
-          >
-            ♡
-          </button>
+          <HeartButton serviceId={service.id} />
         </div>
       </div>
     </article>

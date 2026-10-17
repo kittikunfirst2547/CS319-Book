@@ -1,5 +1,5 @@
 # Wellbook Progress
-Current: Phase 1 → 1.6 Favorites (Zustand + persist)
+Current: Phase 1 → 1.7 MyPage — tabs + bookings tab
 
 ## Phase 0 — Setup
 - [x] Vite + TS (Vite 8, React 19.2, TS 6)
@@ -17,7 +17,7 @@ Current: Phase 1 → 1.6 Favorites (Zustand + persist)
 - [x] 1.3 Home — ServiceCard + grid (ServiceCard, ImagePlaceholder, Rating, formatPrice, responsive grid) ✅ 2026-10-17
 - [x] 1.4 Home — search, chips, price filter, sort (derived filter + toSorted, controlled selects, EmptyState) ✅ 2026-10-17 (browser-tested)
 - [x] 1.5 Service detail page (useParams + not-found, BookingCard, Chip, ReviewCard, formatDayPill, <dialog> modal) ✅ 2026-10-17
-- [ ] 1.6 Favorites (Zustand + persist)
+- [x] 1.6 Favorites (Zustand 5 + persist, ids only, useIsFavorite selector, HeartButton, FavoriteCard, MyPage list) ✅ 2026-10-17
 - [ ] 1.7 MyPage — tabs + bookings tab
 - [ ] 1.8 Longevity Check
 - [ ] 1.9 About page
@@ -55,6 +55,7 @@ Current: Phase 1 → 1.6 Favorites (Zustand + persist)
 - 2026-10-17: chose category key + label map (B) after seeing encoded Thai URL + "change label in one place" argument.
 
 ## Review later (skipped for speed — fast-track mode)
+- 1.6: mentor coded the whole step — revisit: store ids not data (derive favorites), selector returning boolean → fewer re-renders, why not `has()` in store (no subscription), `create<T>()(persist(...))` double call. ⭐ likely presentation question (server vs client state).
 - 1.5: mentor coded the whole step — revisit: useParams = string, early return narrows `service`, reset time on new date, `key={service.id}` remounts BookingCard, `timeZone: "UTC"` for ISO dates, `<dialog>` + useRef + showModal. ⭐ likely presentation question (string vs number id).
 - 1.4: mentor coded the rest (selects, sorted, EmptyState) + fixed TDZ bug (`const matchesPrice = matchesPrice(...)` shadowed the function). `!teach` walkthrough skipped at piece 1 — revisit Q1 (why not useEffect+setFiltered) & Q2 (`||` short-circuit for "all").
 - 1.2: 2 check questions (string vs number filter, DD/MM/YYYY sorting)
