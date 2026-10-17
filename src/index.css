@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: false;
+}
+
+ @plugin "daisyui/theme" {
+    name: "wellbook";
+    default: true;          /* use this theme without setting data-theme */
+    color-scheme: light;
+    --color-primary: #1B6B5C;
+    --color-primary-content: #FFFFFF;  /* text ON a primary background */
+    --color-base-100: #FFFFFF;
+    --color-base-200: #F1F6F3;
+    --color-base-300: #CFE3DA;
+    --color-base-content: #12332C;
+    --color-error: #B42318;
+    --color-error-content: #FFFFFF;
+    --radius-box: 1rem;          /* border radius for card and other big boxes */
+    --radius-field: 0.75rem;        /* border radius for inputs and buttons */
+  }
+
+  @theme {
+    --font-sans: "Prompt", ui-sans-serif, system-ui, sans-serif;
+  }
