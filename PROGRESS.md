@@ -1,5 +1,5 @@
 # Wellbook Progress
-Current: Phase 1 → 1.4 Home — search, chips, price filter, sort
+Current: Phase 1 → 1.5 Service detail page
 
 ## Phase 0 — Setup
 - [x] Vite + TS (Vite 8, React 19.2, TS 6)
@@ -15,7 +15,7 @@ Current: Phase 1 → 1.4 Home — search, chips, price filter, sort
 - [x] 1.1 Layout + Navbar (NavLink + end, layout route + Outlet, 404 inside layout)
 - [x] 1.2 Types + mock data (Service/Review/Slot types, CATEGORY_LABELS, services/reviews/slots mock) ✅ 2026-10-17
 - [x] 1.3 Home — ServiceCard + grid (ServiceCard, ImagePlaceholder, Rating, formatPrice, responsive grid) ✅ 2026-10-17
-- [ ] 1.4 Home — search, chips, price filter, sort
+- [x] 1.4 Home — search, chips, price filter, sort (derived filter + toSorted, controlled selects, EmptyState) ✅ 2026-10-17 (tsc+lint ok; browser test pending)
 - [ ] 1.5 Service detail page
 - [ ] 1.6 Favorites (Zustand + persist)
 - [ ] 1.7 MyPage — tabs + bookings tab
@@ -55,8 +55,11 @@ Current: Phase 1 → 1.4 Home — search, chips, price filter, sort
 - 2026-10-17: chose category key + label map (B) after seeing encoded Thai URL + "change label in one place" argument.
 
 ## Review later (skipped for speed — fast-track mode)
+- 1.4: mentor coded the rest (selects, sorted, EmptyState) + fixed TDZ bug (`const matchesPrice = matchesPrice(...)` shadowed the function). `!teach` walkthrough skipped at piece 1 — revisit Q1 (why not useEffect+setFiltered) & Q2 (`||` short-circuit for "all").
 - 1.2: 2 check questions (string vs number filter, DD/MM/YYYY sorting)
 - 1.3: which pieces are reusable across pages (answered by mentor)
+- 1.4: `!show` price + sort + EmptyState — revisit: `toSorted` vs `sort` (mutation), comparator sign, pure `matchesPrice`, range boundaries, `<select>` value is string → `as`. ⭐ likely presentation question.
+- 1.4: `!show` category chips — revisit: `Category | "all"`, why `useState<T>` needed here, `Object.keys` → string[] + `as`, narrowing, `onClick={() => f(x)}` vs `onClick={f(x)}`. Also typo `rounded-xL` (Tailwind is case-sensitive).
 - 1.4: `!show` search box — revisit: DERIVED STATE (no useState/useEffect for filtered list), controlled input, why not useMemo. ⭐ likely presentation question.
 - 1.3: card-actions nested inside rating row → flex squeezed everything; fixed by moving after closing `</div>` (tag matching).
 - 1.3: `!show` grid + Link + heart — revisit: mobile-first `sm:`/`lg:`, Link (navigate) vs button (action), `type="button"`. Also left old rating span → duplicate (add vs replace).
