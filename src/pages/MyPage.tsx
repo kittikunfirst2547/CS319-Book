@@ -1,29 +1,53 @@
-import { services } from "../data/services";
-import { useFavoritesStore } from "../stores/favoritesStore";
-import { EmptyState } from "../components/ui/EmptyState";
-import { FavoriteCard } from "../components/service/FavoriteCard";
+import { useState } from "react";
+import { useSearchParams } from "react-router";
+import type { Booking } from "../types/booking";
+import { initialBookings } from "../data/bookings";
+import { Chip } from "../components/ui/Chip";
+import { FavoritesTab } from "../components/my/FavoritesTab";
+import { BookingsTab } from "../components/my/BookingsTab";
+
+type Tab = "bookings" | "favorites";
+
+const TABS: { value: Tab; label: string }[] = [
+  { value: "bookings", label: "การจอง" },
+  { value: "favorites", label: "รายการโปรด" },
+];
 
 export function MyPage() {
-  const favoriteIds = useFavoritesStore((state) => state.ids);
-  // Derived: ids (Zustand) + service list (data) → favorite services
-  const favorites = services.filter((s) => favoriteIds.includes(s.id));
+  // URL state: /my?tab=favorites — anything else (or missing) → bookings
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab: Tab = searchParams.get("tab") === "favorites" ? "favorites" : "bookings";
+
+  // THROWAWAY local list — lives here (not in BookingsTab) so switching tabs keeps cancellations.
+  // Phase 3: replaced by useBookings() + a cancel mutation.
+  const [bookings, setBookings] = useState<Booking[]>(initialBookings);
+
+  function handleCancel(id: string) {
+    setBookings((prev) =>
+      prev.map((b) => (b.id === id ? { ...b, status: "cancelled" } : b)),
+    );
+  }
 
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">การจองของฉัน</h1>
-      {/* tabs การจอง / รายการโปรด come in 1.7 */}
 
-      {favorites.length === 0 ? (
-        <EmptyState
-          title="ยังไม่มีรายการโปรด"
-          description="กด ♡ ที่บริการที่สนใจ เพื่อบันทึกไว้ดูภายหลัง"
-        />
+      <div className="flex gap-2">
+        {TABS.map((t) => (
+          <Chip
+            key={t.value}
+            selected={tab === t.value}
+            onClick={() => setSearchParams({ tab: t.value })}
+          >
+            {t.label}
+          </Chip>
+        ))}
+      </div>
+
+      {tab === "favorites" ? (
+        <FavoritesTab />
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {favorites.map((service) => (
-            <FavoriteCard key={service.id} service={service} />
-          ))}
-        </div>
+        <BookingsTab bookings={bookings} onCancel={handleCancel} />
       )}
     </div>
   );
