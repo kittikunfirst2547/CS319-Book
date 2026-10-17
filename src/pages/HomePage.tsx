@@ -2,6 +2,7 @@ import { useState } from "react";
 import { services } from "../data/services";
 import { ServiceCard } from "../components/ui/ServiceCard";
 import { EmptyState } from "../components/ui/EmptyState";
+import { Chip } from "../components/ui/Chip";
 import type { Category } from "../types/service";
 import { CATEGORY_LABELS } from "../lib/categories";
 
@@ -123,15 +124,13 @@ export function HomePage() {
 
       <div className="flex flex-wrap gap-2">
         {CATEGORY_OPTIONS.map((c) => (
-          <button
+          <Chip
             key={c}
-            type="button"
-            aria-pressed={category === c}
+            selected={category === c}
             onClick={() => setCategory(c)}
-            className={`btn rounded-full ${category === c ? "btn-primary" : "bg-base-100"}`}
           >
             {c === "all" ? "ทั้งหมด" : CATEGORY_LABELS[c]}
-          </button>
+          </Chip>
         ))}
       </div>
 

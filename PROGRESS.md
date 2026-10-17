@@ -1,5 +1,5 @@
 # Wellbook Progress
-Current: Phase 1 → 1.5 Service detail page
+Current: Phase 1 → 1.6 Favorites (Zustand + persist)
 
 ## Phase 0 — Setup
 - [x] Vite + TS (Vite 8, React 19.2, TS 6)
@@ -15,8 +15,8 @@ Current: Phase 1 → 1.5 Service detail page
 - [x] 1.1 Layout + Navbar (NavLink + end, layout route + Outlet, 404 inside layout)
 - [x] 1.2 Types + mock data (Service/Review/Slot types, CATEGORY_LABELS, services/reviews/slots mock) ✅ 2026-10-17
 - [x] 1.3 Home — ServiceCard + grid (ServiceCard, ImagePlaceholder, Rating, formatPrice, responsive grid) ✅ 2026-10-17
-- [x] 1.4 Home — search, chips, price filter, sort (derived filter + toSorted, controlled selects, EmptyState) ✅ 2026-10-17 (tsc+lint ok; browser test pending)
-- [ ] 1.5 Service detail page
+- [x] 1.4 Home — search, chips, price filter, sort (derived filter + toSorted, controlled selects, EmptyState) ✅ 2026-10-17 (browser-tested)
+- [x] 1.5 Service detail page (useParams + not-found, BookingCard, Chip, ReviewCard, formatDayPill, <dialog> modal) ✅ 2026-10-17
 - [ ] 1.6 Favorites (Zustand + persist)
 - [ ] 1.7 MyPage — tabs + bookings tab
 - [ ] 1.8 Longevity Check
@@ -55,6 +55,7 @@ Current: Phase 1 → 1.5 Service detail page
 - 2026-10-17: chose category key + label map (B) after seeing encoded Thai URL + "change label in one place" argument.
 
 ## Review later (skipped for speed — fast-track mode)
+- 1.5: mentor coded the whole step — revisit: useParams = string, early return narrows `service`, reset time on new date, `key={service.id}` remounts BookingCard, `timeZone: "UTC"` for ISO dates, `<dialog>` + useRef + showModal. ⭐ likely presentation question (string vs number id).
 - 1.4: mentor coded the rest (selects, sorted, EmptyState) + fixed TDZ bug (`const matchesPrice = matchesPrice(...)` shadowed the function). `!teach` walkthrough skipped at piece 1 — revisit Q1 (why not useEffect+setFiltered) & Q2 (`||` short-circuit for "all").
 - 1.2: 2 check questions (string vs number filter, DD/MM/YYYY sorting)
 - 1.3: which pieces are reusable across pages (answered by mentor)
