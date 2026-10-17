@@ -1,5 +1,5 @@
 # Wellbook Progress
-Current: Phase 1 → 1.3 Home — ServiceCard + grid
+Current: Phase 1 → 1.4 Home — search, chips, price filter, sort
 
 ## Phase 0 — Setup
 - [x] Vite + TS (Vite 8, React 19.2, TS 6)
@@ -14,7 +14,7 @@ Current: Phase 1 → 1.3 Home — ServiceCard + grid
 ## Phase 1 — Frontend with static mock data
 - [x] 1.1 Layout + Navbar (NavLink + end, layout route + Outlet, 404 inside layout)
 - [x] 1.2 Types + mock data (Service/Review/Slot types, CATEGORY_LABELS, services/reviews/slots mock) ✅ 2026-10-17
-- [ ] 1.3 Home — ServiceCard + grid
+- [x] 1.3 Home — ServiceCard + grid (ServiceCard, ImagePlaceholder, Rating, formatPrice, responsive grid) ✅ 2026-10-17
 - [ ] 1.4 Home — search, chips, price filter, sort
 - [ ] 1.5 Service detail page
 - [ ] 1.6 Favorites (Zustand + persist)
@@ -54,7 +54,19 @@ Current: Phase 1 → 1.3 Home — ServiceCard + grid
 - 2026-10-17: `npx tsc --noEmit` checks nothing here (root tsconfig `files: []` + references) → use `npx tsc -b`.
 - 2026-10-17: chose category key + label map (B) after seeing encoded Thai URL + "change label in one place" argument.
 
+## Review later (skipped for speed — fast-track mode)
+- 1.2: 2 check questions (string vs number filter, DD/MM/YYYY sorting)
+- 1.3: which pieces are reusable across pages (answered by mentor)
+- 1.4: `!show` search box — revisit: DERIVED STATE (no useState/useEffect for filtered list), controlled input, why not useMemo. ⭐ likely presentation question.
+- 1.3: card-actions nested inside rating row → flex squeezed everything; fixed by moving after closing `</div>` (tag matching).
+- 1.3: `!show` grid + Link + heart — revisit: mobile-first `sm:`/`lg:`, Link (navigate) vs button (action), `type="button"`. Also left old rating span → duplicate (add vs replace).
+- 1.3: `!show` ImagePlaceholder + Rating — revisit: optional props + defaults, className composition, `count && ...` renders 0, aria-hidden
+- 1.3: `!show` formatPrice + card styling — revisit: why formatter outside function, min+max fraction digits, h1→h2 order
+- 1.3: `!show ServiceCard + map` — revisit: props destructuring, why `key={id}` not index, `() => ( )` vs `() => { }`
+- 1.3: `!show HomePage header` — revisit: why `space-y-6`, why no container classes (Layout has them)
+
 ## Decisions
+- 2026-10-17: **Fast-track mode** — tight on time (other project). `!show` one piece at a time → I type → quick review → commit. Skip quizzes/mockup questions; log skipped items in "Review later". Roadmap: `notes/phase1-roadmap.md`.
 - I own the frontend (all 5 pages + login). Teammates: backend/other.
 - Font: Prompt (Google Fonts).
 - Categories: English keys (`checkup|fitness|yoga|nutrition|spa`) + `CATEGORY_LABELS` in `src/lib/categories.ts`.
