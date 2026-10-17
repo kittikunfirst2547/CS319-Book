@@ -1,5 +1,5 @@
 # Wellbook Progress
-Current: Phase 0 → Step 4 Git init + first commit
+Current: Phase 1 → 1.2 Types + mock data
 
 ## Phase 0 — Setup
 - [x] Vite + TS (Vite 8, React 19.2, TS 6)
@@ -8,10 +8,11 @@ Current: Phase 0 → Step 4 Git init + first commit
   - [x] 2b `wellbook` theme (themes: false, custom tokens)
   - [x] 2c Prompt font (400–700, no italics), lang="th"
 - [x] React Router + placeholder pages (react-router 8.4, createBrowserRouter, named exports)
-- [ ] Git init + .gitignore + first commit
+- [x] Git init + .gitignore + first commit (cdcf5bb, branch main)
+- ✅ Phase 0 checkpoint passed 2026-10-17
 
 ## Phase 1 — Frontend with static mock data
-- [ ] 1.1 Layout + Navbar
+- [x] 1.1 Layout + Navbar (NavLink + end, layout route + Outlet, 404 inside layout)
 - [ ] 1.2 Types + mock data
 - [ ] 1.3 Home — ServiceCard + grid
 - [ ] 1.4 Home — search, chips, price filter, sort
@@ -41,6 +42,10 @@ Current: Phase 0 → Step 4 Git init + first commit
 - 2026-10-17: stuck starting a component from an empty file (needed all 4 hint levels) → function + return JSX + export.
 - 2026-10-17: unsaved files again → turn on VS Code Auto Save.
 - 2026-10-17: wrote `router.RouterProvider` (thought it lived on my router object) → library components are imported from the package. Also mixed quotes `'..."` and unclosed JSX tag `<X >` → `<X />`.
+
+- 2026-10-17: used `!show Navbar` (1.1) — had used `<a href>` (full reload) → `NavLink` + `className={({ isActive }) => ...}` + `end` on "/". Revisit: why `end`? why `Link` vs `NavLink`?
+- 2026-10-17: Q1 quiz wrong (thought removing `end` redirects → actually "/" link is active on every page). Q2 half (Link = real `<a href>`: new tab, a11y).
+- 2026-10-17: used `!show` for Layout + layout route (1.1) → `<Outlet />`, pathless parent route, `children`, `index: true`. Revisit: what renders where `<Outlet />` is?
 
 ## Decisions
 - I own the frontend (all 5 pages + login). Teammates: backend/other.

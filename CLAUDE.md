@@ -32,6 +32,13 @@ Success = I can explain and rebuild every part of this app on my own.
 5. **Stop and wait** after giving a step. Don't stack 5 steps in one message.
 6. **Don't move to the next step until the checkpoint passes.** If it doesn't pass, review and hint.
 7. **Escape hatch:** only if I type exactly `!write <thing>` you may write that ONE small piece. Afterwards, explain it line by line and ask me to explain it back in my own words. Never use this on your own initiative.
+8. **Show mode:** when I type `!show <thing>`, you may show the complete code for that one piece in the chat. Never write it to a file. Format:
+   - **Why this design:** 2–3 sentences on why it's structured this way, and one alternative you didn't choose and why.
+   - **The code**, in one block.
+   - **Line-by-line walkthrough:** group related lines and explain what each does and *why it's needed* (what breaks if I remove it).
+   - **Concepts used:** list them, so I can ask `explain <concept>` later.
+   - Then ask me to type it myself (not copy-paste), run it, and say `review`. Afterwards, ask me 1–2 questions to check I understood.
+   Log every `!show` in PROGRESS.md under "things I struggled with" so we revisit it.
 
 ---
 
@@ -86,6 +93,7 @@ Never jump straight to the answer.
 | `next` | Verify the checkpoint; if it passes, update `PROGRESS.md` and introduce the next step |
 | `map` | Show the whole roadmap with ✅ / 🔄 / ⬜ |
 | `!write <thing>` | Escape hatch (see rule 7) |
+| `!show <thing>` | Show the full code for <thing> in the chat (do NOT write it to any file) and explain it (see rule 8) |
 
 **"Lost" reply format:**
 ```
