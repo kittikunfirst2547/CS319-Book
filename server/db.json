@@ -183,40 +183,7 @@
       ]
     }
   ],
-  "bookings": [
-    {
-      "id": "1",
-      "serviceId": "1",
-      "date": "2026-10-20",
-      "time": "10:30",
-      "status": "cancelled",
-      "createdAt": "2026-10-18T09:00:00Z"
-    },
-    {
-      "id": "2",
-      "serviceId": "2",
-      "date": "2026-10-20",
-      "time": "09:00",
-      "status": "cancelled",
-      "createdAt": "2026-10-18T10:20:00Z"
-    },
-    {
-      "serviceId": "5",
-      "date": "2026-10-20",
-      "time": "10:00",
-      "status": "cancelled",
-      "createdAt": "2026-10-18T15:46:14.160Z",
-      "id": "ZdSQIWYs77g"
-    },
-    {
-      "serviceId": "5",
-      "date": "2026-10-20",
-      "time": "13:00",
-      "status": "confirmed",
-      "createdAt": "2026-10-18T16:29:25.234Z",
-      "id": "9T-SzMz1o9s"
-    }
-  ],
+  "bookings": [],
   "questions": [
     {
       "id": "1",
