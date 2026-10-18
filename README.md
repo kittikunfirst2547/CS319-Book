@@ -1,75 +1,75 @@
-# React + TypeScript + Vite
+# Wellbook
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Wellbook is an educational health-service booking SPA. The React frontend and mock REST API run as separate processes and communicate over HTTP.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19 + TypeScript + Vite
+- React Router
+- TanStack Query
+- Zustand with persisted client preferences
+- Tailwind CSS + DaisyUI
+- JSON Server
 
-## React Compiler
+## Install
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```powershell
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Copy the example environment file when a different API URL is needed:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```powershell
+Copy-Item .env.example .env.local
 ```
+
+The default API URL is `http://localhost:3001`.
+
+## Run
+
+Open two terminals in the project directory.
+
+Terminal 1 - mock REST API:
+
+```powershell
+npm run server
+```
+
+Terminal 2 - React frontend:
+
+```powershell
+npm run dev
+```
+
+Vite normally prints `http://localhost:5173`. JSON Server runs at `http://localhost:3001`.
+
+They are separate so the frontend communicates with server state through REST requests instead of importing data files. Stopping JSON Server should leave the frontend running and show retryable error states.
+
+## API Resources
+
+- `GET /services` and `GET /services/:id`
+- `GET /reviews`
+- `GET /slots`
+- `GET`, `POST`, and `PATCH /bookings`
+- `GET /questions`
+
+Favorites remain in localStorage through Zustand rather than using a server resource.
+
+## Checks
+
+```powershell
+npm run lint
+npx tsc -b
+npm run build
+```
+
+## Project Structure
+
+- `server/db.json` - JSON Server seed data and persisted mock changes
+- `src/api/` - typed HTTP and resource functions
+- `src/hooks/` - TanStack Query hooks and query keys
+- `src/stores/` - persisted client-only state
+- `src/pages/` - routed screens
+- `src/components/` - reusable UI and feature components
+
+Wellbook is a simulated system for education; it does not create real healthcare appointments.

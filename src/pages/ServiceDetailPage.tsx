@@ -1,20 +1,43 @@
 import { Link, useParams } from "react-router";
-import { services } from "../data/services";
-import { reviews } from "../data/reviews";
-import { slots } from "../data/slots";
 import { CATEGORY_LABELS } from "../lib/categories";
-import { ImagePlaceholder } from "../components/ui/ImagePlaceholder";
+import { ServiceImage } from "../components/ui/ServiceImage";
 import { Rating } from "../components/ui/Rating";
 import { ReviewCard } from "../components/ui/ReviewCard";
 import { EmptyState } from "../components/ui/EmptyState";
 import { BookingCard } from "../components/service/BookingCard";
+import { QueryError } from "../components/ui/QueryError";
+import { ServiceGridSkeleton } from "../components/ui/ServiceGridSkeleton";
+import { ApiError } from "../api/client";
+import { useService } from "../hooks/useService";
+import { useReviews } from "../hooks/useReviews";
+import { useSlots } from "../hooks/useSlots";
+import { useBookings, useCreateBooking } from "../hooks/useBookings";
+import type { NewBooking } from "../api/bookings";
 
 export function ServiceDetailPage() {
-  // URL params are always strings (or undefined) — our ids are strings too
   const { id } = useParams();
-  const service = services.find((s) => s.id === id);
+  const serviceQuery = useService(id);
+  const reviewsQuery = useReviews(id);
+  const slotsQuery = useSlots(id);
+  const bookingsQuery = useBookings();
+  const createBooking = useCreateBooking();
 
-  if (!service) {
+  const isPending =
+    serviceQuery.isPending ||
+    reviewsQuery.isPending ||
+    slotsQuery.isPending ||
+    bookingsQuery.isPending;
+  const isNotFound =
+    serviceQuery.error instanceof ApiError && serviceQuery.error.status === 404;
+  const hasError =
+    serviceQuery.isError ||
+    reviewsQuery.isError ||
+    slotsQuery.isError ||
+    bookingsQuery.isError;
+
+  if (isPending) return <ServiceGridSkeleton />;
+
+  if (isNotFound || !id) {
     return (
       <div className="space-y-4">
         <EmptyState
@@ -30,9 +53,33 @@ export function ServiceDetailPage() {
     );
   }
 
+  if (hasError) {
+    return (
+      <QueryError
+        message="ไม่สามารถโหลดรายละเอียดบริการได้ กรุณาตรวจสอบ Backend Server"
+        onRetry={() => {
+          void Promise.all([
+            serviceQuery.refetch(),
+            reviewsQuery.refetch(),
+            slotsQuery.refetch(),
+            bookingsQuery.refetch(),
+          ]);
+        }}
+      />
+    );
+  }
+
+  const service = serviceQuery.data;
+  if (!service) return null;
+
   const categoryLabel = CATEGORY_LABELS[service.category];
-  const serviceReviews = reviews.filter((r) => r.serviceId === service.id);
-  const serviceSlots = slots.filter((s) => s.serviceId === service.id);
+  const serviceReviews = reviewsQuery.data ?? [];
+  const serviceSlots = slotsQuery.data ?? [];
+  const bookings = bookingsQuery.data ?? [];
+
+  async function handleConfirm(input: NewBooking) {
+    await createBooking.mutateAsync(input);
+  }
 
   return (
     <div className="space-y-6">
@@ -49,7 +96,12 @@ export function ServiceDetailPage() {
       {/* items-start: lets the booking card be sticky inside the grid */}
       <div className="grid items-start gap-6 lg:grid-cols-3">
         <section className="space-y-4 lg:col-span-2">
-          <ImagePlaceholder className="h-64 md:h-80" />
+          <ServiceImage
+            src={service.imageUrl}
+            alt={service.name}
+            loading="eager"
+            className="h-64 md:h-80"
+          />
 
           <div>
             <p className="text-sm text-base-content/60">{categoryLabel}</p>
@@ -72,7 +124,19 @@ export function ServiceDetailPage() {
         </section>
 
         {/* key: switching to another service remounts the card → selection resets */}
-        <BookingCard key={service.id} service={service} slots={serviceSlots} />
+        <BookingCard
+          key={service.id}
+          service={service}
+          slots={serviceSlots}
+          bookings={bookings}
+          onConfirm={handleConfirm}
+          isConfirming={createBooking.isPending}
+          confirmError={
+            createBooking.isError
+              ? "จองไม่สำเร็จ กรุณาลองอีกครั้ง"
+              : null
+          }
+        />
       </div>
     </div>
   );

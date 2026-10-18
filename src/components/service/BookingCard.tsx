@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import type { Service } from "../../types/service";
 import type { Slot } from "../../types/slot";
+import type { Booking } from "../../types/booking";
+import type { NewBooking } from "../../api/bookings";
 import { formatDayPill, formatPrice } from "../../lib/format";
 import { Chip } from "../ui/Chip";
 import { useFavoritesStore, useIsFavorite } from "../../stores/favoritesStore";
@@ -8,9 +10,20 @@ import { useFavoritesStore, useIsFavorite } from "../../stores/favoritesStore";
 type BookingCardProps = {
   service: Service;
   slots: Slot[];
+  bookings: Booking[];
+  onConfirm: (input: NewBooking) => Promise<void>;
+  isConfirming: boolean;
+  confirmError: string | null;
 };
 
-export function BookingCard({ service, slots }: BookingCardProps) {
+export function BookingCard({
+  service,
+  slots,
+  bookings,
+  onConfirm,
+  isConfirming,
+  confirmError,
+}: BookingCardProps) {
   // UI state — store the date string, not the whole slot object
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
@@ -22,11 +35,42 @@ export function BookingCard({ service, slots }: BookingCardProps) {
 
   // Derived
   const times = slots.find((s) => s.date === selectedDate)?.times ?? [];
-  const canConfirm = selectedDate !== null && selectedTime !== null;
+  const occupiedTimes = new Set(
+    bookings
+      .filter(
+        (booking) =>
+          booking.serviceId === service.id &&
+          booking.date === selectedDate &&
+          booking.status === "confirmed",
+      )
+      .map((booking) => booking.time),
+  );
+  const canConfirm =
+    selectedDate !== null &&
+    selectedTime !== null &&
+    !occupiedTimes.has(selectedTime) &&
+    !isConfirming;
 
   function handleSelectDate(date: string) {
     setSelectedDate(date);
     setSelectedTime(null); // the old time may not exist on the new day
+  }
+
+  async function handleConfirm() {
+    if (!selectedDate || !selectedTime || !canConfirm) return;
+
+    try {
+      await onConfirm({
+        serviceId: service.id,
+        date: selectedDate,
+        time: selectedTime,
+        status: "confirmed",
+        createdAt: new Date().toISOString(),
+      });
+      dialogRef.current?.showModal();
+    } catch {
+      // The mutation error is rendered below without clearing the selection.
+    }
   }
 
   return (
@@ -72,9 +116,10 @@ export function BookingCard({ service, slots }: BookingCardProps) {
                     <Chip
                       key={time}
                       selected={selectedTime === time}
+                      disabled={occupiedTimes.has(time)}
                       onClick={() => setSelectedTime(time)}
                     >
-                      {time}
+                      {time}{occupiedTimes.has(time) ? " · เต็ม" : ""}
                     </Chip>
                   ))}
                 </div>
@@ -87,10 +132,15 @@ export function BookingCard({ service, slots }: BookingCardProps) {
           type="button"
           className="btn btn-primary rounded-xl"
           disabled={!canConfirm}
-          onClick={() => dialogRef.current?.showModal()}
+          onClick={() => void handleConfirm()}
         >
-          ยืนยันการจอง
+          {isConfirming ? "กำลังจอง..." : "ยืนยันการจอง"}
         </button>
+        {confirmError && (
+          <p role="alert" className="text-sm text-error">
+            {confirmError}
+          </p>
+        )}
         <button
           type="button"
           aria-pressed={isFavorite}
@@ -104,7 +154,7 @@ export function BookingCard({ service, slots }: BookingCardProps) {
 
       <dialog ref={dialogRef} className="modal">
         <div className="modal-box">
-          <h3 className="text-lg font-bold">จองสำเร็จ (จำลอง)</h3>
+          <h3 className="text-lg font-bold">จองสำเร็จ</h3>
           <p className="py-2 text-sm text-base-content/70">
             {service.name} · {selectedDate && formatDayPill(selectedDate)} ·{" "}
             {selectedTime} น.

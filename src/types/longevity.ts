@@ -7,6 +7,7 @@ export type Question = {
   domain: Domain;
   title: string; // "ด้านการนอน"
   question: string;
+  recommendationServiceId: string;
 };
 
 // Not every domain is answered yet → Partial

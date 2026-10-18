@@ -1,5 +1,5 @@
 import type { Question } from "../../types/longevity";
-import { ANSWER_OPTIONS } from "../../data/longevity";
+import { ANSWER_OPTIONS } from "../../lib/longevityContent";
 import { useLongevityStore } from "../../stores/longevityStore";
 
 type QuestionStepProps = {

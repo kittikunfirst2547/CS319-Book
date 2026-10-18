@@ -1,5 +1,5 @@
 import type { Domain } from "../../types/longevity";
-import { DOMAIN_LABELS } from "../../data/longevity";
+import { DOMAIN_LABELS } from "../../lib/longevityContent";
 
 type ProgressStepsProps = {
   domains: Domain[];

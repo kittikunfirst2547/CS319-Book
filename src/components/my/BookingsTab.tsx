@@ -1,15 +1,22 @@
 import { Link } from "react-router";
 import type { Booking } from "../../types/booking";
-import { services } from "../../data/services";
+import type { Service } from "../../types/service";
 import { formatThaiDate } from "../../lib/format";
 import { EmptyState } from "../ui/EmptyState";
 
 type BookingsTabProps = {
   bookings: Booking[];
+  services: Service[];
   onCancel: (id: string) => void;
+  cancellingId: string | null;
 };
 
-export function BookingsTab({ bookings, onCancel }: BookingsTabProps) {
+export function BookingsTab({
+  bookings,
+  services,
+  onCancel,
+  cancellingId,
+}: BookingsTabProps) {
   if (bookings.length === 0) {
     return (
       <EmptyState
@@ -55,9 +62,10 @@ export function BookingsTab({ bookings, onCancel }: BookingsTabProps) {
               <button
                 type="button"
                 onClick={() => onCancel(booking.id)}
+                disabled={cancellingId === booking.id}
                 className="btn btn-outline btn-error btn-sm rounded-xl"
               >
-                ยกเลิกการจอง
+                {cancellingId === booking.id ? "กำลังยกเลิก..." : "ยกเลิกการจอง"}
               </button>
             )}
           </li>

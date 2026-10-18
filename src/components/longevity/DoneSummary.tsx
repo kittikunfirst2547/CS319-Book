@@ -1,7 +1,12 @@
-import { DOMAIN_LABELS, QUESTIONS } from "../../data/longevity";
+import { DOMAIN_LABELS } from "../../lib/longevityContent";
 import { useLongevityStore } from "../../stores/longevityStore";
+import type { Question } from "../../types/longevity";
 
-export function DoneSummary() {
+type DoneSummaryProps = {
+  questions: Question[];
+};
+
+export function DoneSummary({ questions }: DoneSummaryProps) {
   const answers = useLongevityStore((state) => state.answers);
   const reset = useLongevityStore((state) => state.reset);
 
@@ -10,7 +15,7 @@ export function DoneSummary() {
       <h2 className="text-lg font-semibold">ทำแบบประเมินครบแล้ว</h2>
 
       <ul className="space-y-1 text-sm">
-        {QUESTIONS.map((q) => (
+        {questions.map((q) => (
           <li key={q.id} className="flex justify-between">
             <span>{DOMAIN_LABELS[q.domain]}</span>
             <span className="font-semibold">{answers[q.domain] ?? "-"} / 4</span>

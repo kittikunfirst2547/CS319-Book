@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { services } from "../data/services";
 import { ServiceCard } from "../components/ui/ServiceCard";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Chip } from "../components/ui/Chip";
+import { QueryError } from "../components/ui/QueryError";
+import { ServiceGridSkeleton } from "../components/ui/ServiceGridSkeleton";
 import type { Category } from "../types/service";
 import { CATEGORY_LABELS } from "../lib/categories";
+import { useServices } from "../hooks/useServices";
 
 type CategoryFilter = Category | "all";
 
@@ -43,6 +45,8 @@ function matchesPrice(price: number, range: PriceRange): boolean {
 }
 
 export function HomePage() {
+  const servicesQuery = useServices();
+
   // UI state — one piece per control
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<CategoryFilter>("all");
@@ -51,6 +55,7 @@ export function HomePage() {
 
   // Derived during render — never stored in state
   const keyword = query.trim().toLowerCase();
+  const services = servicesQuery.data ?? [];
   const filtered = services.filter((s) => {
     const nameOk = s.name.toLowerCase().includes(keyword);
     const categoryOk = category === "all" || s.category === category;
@@ -134,7 +139,14 @@ export function HomePage() {
         ))}
       </div>
 
-      {sorted.length === 0 ? (
+      {servicesQuery.isPending ? (
+        <ServiceGridSkeleton />
+      ) : servicesQuery.isError ? (
+        <QueryError
+          message="กรุณาตรวจสอบว่าเปิด Backend Server แล้ว"
+          onRetry={() => void servicesQuery.refetch()}
+        />
+      ) : sorted.length === 0 ? (
         <EmptyState
           title="ไม่พบบริการ"
           description="ลองเปลี่ยนคำค้นหา หมวดหมู่ หรือช่วงราคา"

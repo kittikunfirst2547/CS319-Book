@@ -1,10 +1,11 @@
-import { useState } from "react";
 import { useSearchParams } from "react-router";
-import type { Booking } from "../types/booking";
-import { initialBookings } from "../data/bookings";
 import { Chip } from "../components/ui/Chip";
 import { FavoritesTab } from "../components/my/FavoritesTab";
 import { BookingsTab } from "../components/my/BookingsTab";
+import { QueryError } from "../components/ui/QueryError";
+import { ServiceGridSkeleton } from "../components/ui/ServiceGridSkeleton";
+import { useBookings, useCancelBooking } from "../hooks/useBookings";
+import { useServices } from "../hooks/useServices";
 
 type Tab = "bookings" | "favorites";
 
@@ -18,15 +19,42 @@ export function MyPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const tab: Tab = searchParams.get("tab") === "favorites" ? "favorites" : "bookings";
 
-  // THROWAWAY local list — lives here (not in BookingsTab) so switching tabs keeps cancellations.
-  // Phase 3: replaced by useBookings() + a cancel mutation.
-  const [bookings, setBookings] = useState<Booking[]>(initialBookings);
+  const bookingsQuery = useBookings();
+  const servicesQuery = useServices();
+  const cancelBooking = useCancelBooking();
 
-  function handleCancel(id: string) {
-    setBookings((prev) =>
-      prev.map((b) => (b.id === id ? { ...b, status: "cancelled" } : b)),
+  const bookingsContent = (() => {
+    if (bookingsQuery.isPending || servicesQuery.isPending) {
+      return <ServiceGridSkeleton />;
+    }
+
+    if (bookingsQuery.isError || servicesQuery.isError) {
+      return (
+        <QueryError
+          message="ไม่สามารถโหลดข้อมูลการจองได้"
+          onRetry={() => {
+            void Promise.all([bookingsQuery.refetch(), servicesQuery.refetch()]);
+          }}
+        />
+      );
+    }
+
+    return (
+      <>
+        {cancelBooking.isError && (
+          <p role="alert" className="mb-4 text-sm text-error">
+            ยกเลิกการจองไม่สำเร็จ กรุณาลองอีกครั้ง
+          </p>
+        )}
+        <BookingsTab
+          bookings={bookingsQuery.data}
+          services={servicesQuery.data}
+          onCancel={(id) => cancelBooking.mutate(id)}
+          cancellingId={cancelBooking.isPending ? cancelBooking.variables : null}
+        />
+      </>
     );
-  }
+  })();
 
   return (
     <div className="space-y-6">
@@ -47,7 +75,7 @@ export function MyPage() {
       {tab === "favorites" ? (
         <FavoritesTab />
       ) : (
-        <BookingsTab bookings={bookings} onCancel={handleCancel} />
+        bookingsContent
       )}
     </div>
   );

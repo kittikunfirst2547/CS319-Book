@@ -1,7 +1,7 @@
 import type { Service } from "../../types/service";
 import { CATEGORY_LABELS } from "../../lib/categories";
 import { formatPrice } from "../../lib/format";
-import { ImagePlaceholder } from "./ImagePlaceholder";
+import { ServiceImage } from "./ServiceImage";
 import { Rating } from "./Rating";
 import { HeartButton } from "./HeartButton";
 import { Link } from "react-router";
@@ -14,7 +14,11 @@ export function ServiceCard({ service }: ServiceCardProps) {
   return (
     <article className="card rounded-2xl bg-base-100 shadow-sm">
       <div className="card-body gap-2 p-4">
-        <ImagePlaceholder className="mb-2 h-40" />
+        <ServiceImage
+          src={service.imageUrl}
+          alt={service.name}
+          className="mb-2 h-40"
+        />
         <p className="text-xs text-base-content/60">
           {CATEGORY_LABELS[service.category]}
         </p>

@@ -19,7 +19,7 @@ export function Navbar() {
         <header className="bg-base-100 shadow-sm">
             <nav className="navbar mx-auto max-w-6xl px-4">
                 <Link to="/" className="flex-1 text-2xl font-bold text-primary">
-                    Wellbook
+                    EasyLife
                 </Link>
 
                 <ul className="flex items-center gap-6">
@@ -31,10 +31,6 @@ export function Navbar() {
                         </li>
                     ))}
                 </ul>
-
-                <Link to="/login" className="btn btn-outline btn-primary ml-6">
-                    เข้าสู่ระบบ
-                </Link>
             </nav>
         </header>
     );

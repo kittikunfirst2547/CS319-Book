@@ -1,5 +1,5 @@
 # Wellbook Progress
-Current: Phase 1 → 1.9 About page
+Current: Phase 3 complete → Backend connected with TanStack Query → Phase 4 Polish
 
 ## Phase 0 — Setup
 - [x] Vite + TS (Vite 8, React 19.2, TS 6)
@@ -20,17 +20,24 @@ Current: Phase 1 → 1.9 About page
 - [x] 1.6 Favorites (Zustand 5 + persist, ids only, useIsFavorite selector, HeartButton, FavoriteCard, MyPage list) ✅ 2026-10-17
 - [x] 1.7 MyPage — tabs + bookings tab (?tab= via useSearchParams, Booking type, throwaway bookings list, cancel, formatThaiDate) ✅ 2026-10-17
 - [x] 1.8 Longevity Check (data-driven QUESTIONS, pure findWeakestDomain + tie → first, longevityStore persist step+answers, live ResultPanel, DoneSummary) ✅ 2026-10-18
-- [ ] 1.9 About page
-- [ ] 1.10 Login (mock) + protected routes
+- [x] 1.9 About page (MEMBERS/TECH_STACK arrays, roles left for team to fill) ✅ 2026-10-18
 
 ## Phase 2 — Backend (JSON Server)
-- [ ] JSON Server installed + script
-- [ ] db.json resources designed
-- [ ] Endpoints explored by hand
-- [ ] VITE_API_URL in .env
+- [x] JSON Server installed + separate `npm run server` script ✅ 2026-10-18
+- [x] `server/db.json` resources: services, reviews, slots, bookings, questions ✅ 2026-10-18
+- [x] GET/POST/PATCH endpoints explored by hand ✅ 2026-10-18
+- [x] `VITE_API_URL` documented in `.env.example` ✅ 2026-10-18
 
 ## Phase 3 — Connect frontend ↔ backend
-- [ ] (steps 1–10, see CLAUDE.md)
+- [x] Typed API client with non-2xx errors ✅ 2026-10-18
+- [x] QueryClientProvider + React Query Devtools ✅ 2026-10-18
+- [x] Home and favorites load services from API ✅ 2026-10-18
+- [x] Detail loads service, reviews, slots, and bookings ✅ 2026-10-18
+- [x] Booking mutation persists and prevents duplicate confirmed times ✅ 2026-10-18
+- [x] My Page loads and cancels bookings with PATCH ✅ 2026-10-18
+- [x] Longevity questions and recommendations load from API ✅ 2026-10-18
+- [x] Loading, retryable error, and empty states ✅ 2026-10-18
+- [x] Removed static server records from `src/data/` ✅ 2026-10-18
 
 ## Phase 4 — Polish & ship
 - [ ] Responsive / a11y / lint / build / README
@@ -74,7 +81,7 @@ Current: Phase 1 → 1.9 About page
 
 ## Decisions
 - 2026-10-17: **Fast-track mode** — tight on time (other project). `!show` one piece at a time → I type → quick review → commit. Skip quizzes/mockup questions; log skipped items in "Review later". Roadmap: `notes/phase1-roadmap.md`.
-- I own the frontend (all 5 pages + login). Teammates: backend/other.
+- I own the frontend (all 5 pages). Teammates: backend/other.
 - Font: Prompt (Google Fonts).
 - Categories: English keys (`checkup|fitness|yoga|nutrition|spa`) + `CATEGORY_LABELS` in `src/lib/categories.ts`.
 - Ids are strings everywhere. Dates stored as ISO `YYYY-MM-DD`.
