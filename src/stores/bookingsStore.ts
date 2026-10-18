@@ -1,7 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Booking, NewBooking } from "../types/booking";
-import { addBooking, markBookingCancelled } from "./bookingState";
+import {
+  addBooking,
+  markBookingCancelled,
+  sanitizeBookings,
+} from "./bookingState";
 
 type BookingsState = {
   bookings: Booking[];
@@ -37,6 +41,13 @@ export const useBookingsStore = create<BookingsState>()(
       name: "wellbook-bookings",
       version: 1,
       partialize: (state) => ({ bookings: state.bookings }),
+      merge: (persistedState, currentState) => {
+        const persisted = persistedState as Partial<BookingsState> | undefined;
+        return {
+          ...currentState,
+          bookings: sanitizeBookings(persisted?.bookings),
+        };
+      },
     },
   ),
 );
