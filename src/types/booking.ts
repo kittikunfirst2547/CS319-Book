@@ -8,3 +8,5 @@ export type Booking = {
   status: BookingStatus;
   createdAt: string; // ISO datetime
 };
+
+export type NewBooking = Omit<Booking, "id">;

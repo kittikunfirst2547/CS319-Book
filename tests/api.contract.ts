@@ -13,6 +13,7 @@ import {
   getBookings,
   type NewBooking,
 } from "../src/api/bookings";
+import { useBookingsStore } from "../src/stores/bookingsStore";
 import { getQuestions } from "../src/api/questions";
 
 type Equal<Left, Right> =
@@ -48,3 +49,4 @@ void apiRequest;
 void newBooking;
 void error.status;
 void contracts;
+void useBookingsStore;
