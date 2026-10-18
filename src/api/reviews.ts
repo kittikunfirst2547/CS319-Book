@@ -1,8 +1,6 @@
 import type { Review } from "../types/review";
-import { getDatabase } from "./client";
+import { apiRequest } from "./client";
 
 export async function getReviews(serviceId: string): Promise<Review[]> {
-  return (await getDatabase()).reviews.filter(
-    (review) => review.serviceId === serviceId,
-  );
+  return apiRequest<Review[]>("/reviews", { params: { "serviceId:contains": serviceId } });
 }

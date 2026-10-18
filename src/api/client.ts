@@ -1,16 +1,12 @@
-import type { Question } from "../types/longevity";
-import type { Review } from "../types/review";
-import type { Service } from "../types/service";
-import type { Slot } from "../types/slot";
+import axios, { AxiosError, type AxiosRequestConfig } from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "/api";
 
-export type Database = {
-  services: Service[];
-  reviews: Review[];
-  slots: Slot[];
-  questions: Question[];
-};
+export const api = axios.create({
+  baseURL: API_URL,
+  timeout: 10_000,
+  headers: { Accept: "application/json" },
+});
 
 export class ApiError extends Error {
   status: number;
@@ -24,32 +20,19 @@ export class ApiError extends Error {
 
 export async function apiRequest<T>(
   path: string,
-  init?: RequestInit,
+  config?: AxiosRequestConfig,
 ): Promise<T> {
-  const response = await fetch(`${API_URL}${path}`, {
-    ...init,
-    headers: {
-      ...(init?.body ? { "Content-Type": "application/json" } : {}),
-      ...init?.headers,
-    },
-  });
-
-  if (!response.ok) {
-    throw new ApiError(`API request failed (${response.status})`, response.status);
+  try {
+    const response = await api.request<T>({ url: path, ...config });
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      const status = error.response?.status ?? 0;
+      const message =
+        (error.response?.data as { message?: string } | undefined)?.message ??
+        error.message;
+      throw new ApiError(message || "API request failed", status);
+    }
+    throw error;
   }
-
-  return response.json() as Promise<T>;
-}
-
-let databaseRequest: Promise<Database> | null = null;
-
-export function getDatabase(): Promise<Database> {
-  if (!databaseRequest) {
-    databaseRequest = apiRequest<Database>("/db.json").catch((error: unknown) => {
-      databaseRequest = null;
-      throw error;
-    });
-  }
-
-  return databaseRequest;
 }

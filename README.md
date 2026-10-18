@@ -7,6 +7,7 @@ Wellbook is an educational health-service booking SPA. The React frontend and mo
 - React 19 + TypeScript + Vite
 - React Router
 - TanStack Query
+- Axios HTTP client
 - Zustand with persisted client preferences
 - Tailwind CSS + DaisyUI
 - JSON Server
@@ -66,7 +67,8 @@ npm run build
 ## Project Structure
 
 - `server/db.json` - JSON Server seed data and persisted mock changes
-- `src/api/` - typed HTTP and resource functions
+- `src/api/` - typed Axios HTTP client and resource functions
+- `api/` - Vercel serverless REST endpoints used in production
 - `src/hooks/` - TanStack Query hooks and query keys
 - `src/stores/` - persisted client-only state
 - `src/pages/` - routed screens

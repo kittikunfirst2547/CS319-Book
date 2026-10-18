@@ -1,8 +1,6 @@
 import type { Slot } from "../types/slot";
-import { getDatabase } from "./client";
+import { apiRequest } from "./client";
 
 export async function getSlots(serviceId: string): Promise<Slot[]> {
-  return (await getDatabase()).slots.filter(
-    (slot) => slot.serviceId === serviceId,
-  );
+  return apiRequest<Slot[]>("/slots", { params: { "serviceId:contains": serviceId } });
 }

@@ -1,19 +1,25 @@
 import type { Booking, NewBooking } from "../types/booking";
-import { useBookingsStore } from "../stores/bookingsStore";
 import { ApiError } from "./client";
+import { apiRequest } from "./client";
 
 export type { NewBooking } from "../types/booking";
 
 export async function getBookings(): Promise<Booking[]> {
-  return useBookingsStore.getState().bookings;
+  return apiRequest<Booking[]>("/bookings");
 }
 
 export async function createBooking(input: NewBooking): Promise<Booking> {
-  return useBookingsStore.getState().add(input);
+  return apiRequest<Booking>("/bookings", { method: "POST", data: input });
 }
 
 export async function cancelBooking(id: string): Promise<Booking> {
-  const booking = useBookingsStore.getState().cancel(id);
-  if (!booking) throw new ApiError("Booking not found", 404);
-  return booking;
+  try {
+    return await apiRequest<Booking>(`/bookings/${id}`, {
+      method: "PATCH",
+      data: { status: "cancelled" },
+    });
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 404) throw error;
+    throw error;
+  }
 }
