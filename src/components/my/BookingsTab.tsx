@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import type { Booking } from "../../types/booking";
 import type { Service } from "../../types/service";
 import { formatThaiDate } from "../../lib/format";
+import { getVisibleBookings } from "../../lib/bookingVisibility";
 import { EmptyState } from "../ui/EmptyState";
 
 type BookingsTabProps = {
@@ -17,7 +18,9 @@ export function BookingsTab({
   onCancel,
   cancellingId,
 }: BookingsTabProps) {
-  if (bookings.length === 0) {
+  const visibleBookings = getVisibleBookings(bookings);
+
+  if (visibleBookings.length === 0) {
     return (
       <EmptyState
         title="ยังไม่มีการจอง"
@@ -28,10 +31,9 @@ export function BookingsTab({
 
   return (
     <ul className="space-y-4">
-      {bookings.map((booking) => {
+      {visibleBookings.map((booking) => {
         // Join: booking.serviceId → service (like a foreign key)
         const service = services.find((s) => s.id === booking.serviceId);
-        const isCancelled = booking.status === "cancelled";
 
         return (
           <li
@@ -54,20 +56,16 @@ export function BookingsTab({
               </p>
             </div>
 
-            <span className={`badge ${isCancelled ? "badge-ghost" : "badge-success"}`}>
-              {isCancelled ? "ยกเลิกแล้ว" : "ยืนยันแล้ว"}
-            </span>
+            <span className="badge badge-success">ยืนยันแล้ว</span>
 
-            {!isCancelled && (
-              <button
-                type="button"
-                onClick={() => onCancel(booking.id)}
-                disabled={cancellingId === booking.id}
-                className="btn btn-outline btn-error btn-sm rounded-xl"
-              >
-                {cancellingId === booking.id ? "กำลังยกเลิก..." : "ยกเลิกการจอง"}
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={() => onCancel(booking.id)}
+              disabled={cancellingId === booking.id}
+              className="btn btn-outline btn-error btn-sm rounded-xl"
+            >
+              {cancellingId === booking.id ? "กำลังยกเลิก..." : "ยกเลิกการจอง"}
+            </button>
           </li>
         );
       })}

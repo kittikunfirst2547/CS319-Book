@@ -183,7 +183,56 @@
       ]
     }
   ],
-  "bookings": [],
+  "bookings": [
+    {
+      "serviceId": "5",
+      "date": "2026-10-20",
+      "time": "15:00",
+      "status": "cancelled",
+      "createdAt": "2026-10-18T18:05:49.219Z",
+      "id": "XA4ZKbeE7Pg"
+    },
+    {
+      "serviceId": "5",
+      "date": "2026-10-20",
+      "time": "13:00",
+      "status": "cancelled",
+      "createdAt": "2026-10-18T18:06:01.186Z",
+      "id": "_P9KeUcqzxg"
+    },
+    {
+      "serviceId": "5",
+      "date": "2026-10-20",
+      "time": "10:00",
+      "status": "cancelled",
+      "createdAt": "2026-10-18T18:06:04.719Z",
+      "id": "P5xXyFbace0"
+    },
+    {
+      "serviceId": "1",
+      "date": "2026-10-21",
+      "time": "09:00",
+      "status": "confirmed",
+      "createdAt": "2026-10-18T18:35:10.767Z",
+      "id": "iDPHZ0RitCs"
+    },
+    {
+      "serviceId": "1",
+      "date": "2026-10-21",
+      "time": "10:30",
+      "status": "confirmed",
+      "createdAt": "2026-10-18T18:35:23.292Z",
+      "id": "abvQcBGHbug"
+    },
+    {
+      "serviceId": "1",
+      "date": "2026-10-21",
+      "time": "13:00",
+      "status": "confirmed",
+      "createdAt": "2026-10-18T18:35:25.579Z",
+      "id": "7WXrySzPNBk"
+    }
+  ],
   "questions": [
     {
       "id": "1",
