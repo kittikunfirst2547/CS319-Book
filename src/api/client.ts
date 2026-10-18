@@ -1,4 +1,16 @@
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3001";
+import type { Question } from "../types/longevity";
+import type { Review } from "../types/review";
+import type { Service } from "../types/service";
+import type { Slot } from "../types/slot";
+
+const API_URL = import.meta.env.VITE_API_URL ?? "/api";
+
+export type Database = {
+  services: Service[];
+  reviews: Review[];
+  slots: Slot[];
+  questions: Question[];
+};
 
 export class ApiError extends Error {
   status: number;
@@ -29,7 +41,15 @@ export async function apiRequest<T>(
   return response.json() as Promise<T>;
 }
 
-export function whereEquals(field: string, value: string): string {
-  const where = JSON.stringify({ [field]: { eq: value } });
-  return `_where=${encodeURIComponent(where)}`;
+let databaseRequest: Promise<Database> | null = null;
+
+export function getDatabase(): Promise<Database> {
+  if (!databaseRequest) {
+    databaseRequest = apiRequest<Database>("/db.json").catch((error: unknown) => {
+      databaseRequest = null;
+      throw error;
+    });
+  }
+
+  return databaseRequest;
 }

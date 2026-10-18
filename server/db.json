@@ -9,7 +9,7 @@
       "reviewCount": 128,
       "provider": "คลินิกเวลเนสพลัส",
       "description": "ตรวจเลือด ตรวจปัสสาวะ วัดความดัน และพบแพทย์สรุปผล ใช้เวลาประมาณ 2 ชั่วโมง กรุณางดอาหาร 8 ชั่วโมงก่อนตรวจ",
-      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOk-Z9-xMiontXUBBb8GyzshVBkSkZlB_qjgMW5ZVhgcULYHqwuA0MK70&s=10",
+      "imageUrl": "https://images.unsplash.com/photo-1638202993928-7267aad84c31?auto=format&fit=crop&w=1200&q=80",
       "durationMin": 120
     },
     {
@@ -21,7 +21,7 @@
       "reviewCount": 74,
       "provider": "Calm Yoga Studio",
       "description": "โยคะเบื้องต้นสำหรับผู้เริ่มต้น กลุ่มไม่เกิน 8 คน ช่วยยืดเหยียดและลดความเครียด",
-      "imageUrl": "https://scontent.fbkk13-3.fna.fbcdn.net/v/t39.30808-6/652512048_1380024334153277_961262695270746143_n.jpg?stp=dst-jpg_tt6&cstp=mx1920x1920&ctp=s1920x1920&_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFADA7fVkXBNETol3caPTD-N-lnha02OlU36WeFrTY6VcBtiq5gK6KgOQ4mq220ut3mqa9wCnfvKiUkzRmCZ4Iv&_nc_ohc=rxx5MZ9y3q4Q7kNvwEp9c8G&_nc_oc=Adr_gGLdW_xK1OPSwBGvO571pf1kxLXq-8QXFQAduH2IqAnvVDDehgYsYH2ZdKnAFtGMP57qyhkgyNNxRQDlGgJt&_nc_zt=23&_nc_ht=scontent.fbkk13-3.fna&_nc_gid=OYRA6dGroO0notF6VOjkXg&_nc_ss=7b2a8&oh=00_AQPmTgDM3dVJU60AAPYydlpee57aNLoUoTg7RyqbH3j5wA&oe=6ADAD3F5",
+      "imageUrl": "https://images.unsplash.com/photo-1564282350350-a8355817fd2e?auto=format&fit=crop&w=1200&q=80",
       "durationMin": 60
     },
     {
@@ -33,7 +33,7 @@
       "reviewCount": 52,
       "provider": "FitLab Gym",
       "description": "ออกแบบโปรแกรมออกกำลังกายเฉพาะบุคคล พร้อมประเมินร่างกายก่อนเริ่ม",
-      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJoq60Hw3OvoVRtWgceVdnPaL8YmHC7IO8vDw437i6Umd_8l4RluhC4r8&s=10",
+      "imageUrl": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80",
       "durationMin": 60
     },
     {
@@ -45,7 +45,7 @@
       "reviewCount": 39,
       "provider": "NutriCare",
       "description": "วิเคราะห์พฤติกรรมการกิน และวางแผนมื้ออาหารให้เหมาะกับเป้าหมายสุขภาพ",
-      "imageUrl": "https://ap-southeast-2-seek-apac.graphassets.com/AEzBCRO50TYyqbV6XzRDQz/resize=width:5000,height:2617/cm9cpv38931gd0741s2g4y1mb",
+      "imageUrl": "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1200&q=80",
       "durationMin": 45
     },
     {
@@ -57,7 +57,7 @@
       "reviewCount": 210,
       "provider": "Serene Spa",
       "description": "นวดน้ำมันอโรมาทั้งตัว ช่วยคลายกล้ามเนื้อและทำให้นอนหลับดีขึ้น",
-      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz-mzC8YTz5EUgql4zx5TIDCVJGab3Aj5w6rh_TeU5BwukT6mkaBAer5N_&s=10",
+      "imageUrl": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80",
       "durationMin": 90
     },
     {
@@ -69,7 +69,7 @@
       "reviewCount": 88,
       "provider": "FitLab Gym",
       "description": "คลาสคาร์ดิโอและเวทแบบกลุ่ม สนุก ได้เพื่อนใหม่ เหมาะกับทุกระดับ",
-      "imageUrl": "https://png.pngtree.com/thumb_back/fw800/background/20251118/pngtree-group-of-diverse-people-performing-resistance-band-exercises-in-a-gym-image_20447574.webp",
+      "imageUrl": "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=80",
       "durationMin": 50
     }
   ],

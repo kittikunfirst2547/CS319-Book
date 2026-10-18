@@ -1,6 +1,8 @@
 import type { Review } from "../types/review";
-import { apiRequest, whereEquals } from "./client";
+import { getDatabase } from "./client";
 
-export function getReviews(serviceId: string): Promise<Review[]> {
-  return apiRequest<Review[]>(`/reviews?${whereEquals("serviceId", serviceId)}`);
+export async function getReviews(serviceId: string): Promise<Review[]> {
+  return (await getDatabase()).reviews.filter(
+    (review) => review.serviceId === serviceId,
+  );
 }

@@ -1,10 +1,12 @@
 import type { Service } from "../types/service";
-import { apiRequest } from "./client";
+import { ApiError, getDatabase } from "./client";
 
-export function getServices(): Promise<Service[]> {
-  return apiRequest<Service[]>("/services");
+export async function getServices(): Promise<Service[]> {
+  return (await getDatabase()).services;
 }
 
-export function getService(id: string): Promise<Service> {
-  return apiRequest<Service>(`/services/${encodeURIComponent(id)}`);
+export async function getService(id: string): Promise<Service> {
+  const service = (await getDatabase()).services.find((item) => item.id === id);
+  if (!service) throw new ApiError("Service not found", 404);
+  return service;
 }

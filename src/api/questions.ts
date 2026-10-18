@@ -1,6 +1,6 @@
 import type { Question } from "../types/longevity";
-import { apiRequest } from "./client";
+import { getDatabase } from "./client";
 
-export function getQuestions(): Promise<Question[]> {
-  return apiRequest<Question[]>("/questions");
+export async function getQuestions(): Promise<Question[]> {
+  return (await getDatabase()).questions;
 }

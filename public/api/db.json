@@ -1,0 +1,224 @@
+{
+  "services": [
+    {
+      "id": "1",
+      "name": "แพ็กเกจตรวจสุขภาพประจำปี",
+      "category": "checkup",
+      "price": 1200,
+      "rating": 4.8,
+      "reviewCount": 128,
+      "provider": "คลินิกเวลเนสพลัส",
+      "description": "ตรวจเลือด ตรวจปัสสาวะ วัดความดัน และพบแพทย์สรุปผล ใช้เวลาประมาณ 2 ชั่วโมง กรุณางดอาหาร 8 ชั่วโมงก่อนตรวจ",
+      "imageUrl": "https://images.unsplash.com/photo-1638202993928-7267aad84c31?auto=format&fit=crop&w=1200&q=80",
+      "durationMin": 120
+    },
+    {
+      "id": "2",
+      "name": "คลาสโยคะเช้า (กลุ่มเล็ก)",
+      "category": "yoga",
+      "price": 350,
+      "rating": 4.6,
+      "reviewCount": 74,
+      "provider": "Calm Yoga Studio",
+      "description": "โยคะเบื้องต้นสำหรับผู้เริ่มต้น กลุ่มไม่เกิน 8 คน ช่วยยืดเหยียดและลดความเครียด",
+      "imageUrl": "https://images.unsplash.com/photo-1564282350350-a8355817fd2e?auto=format&fit=crop&w=1200&q=80",
+      "durationMin": 60
+    },
+    {
+      "id": "3",
+      "name": "เทรนเนอร์ส่วนตัว 1 ชม.",
+      "category": "fitness",
+      "price": 600,
+      "rating": 4.7,
+      "reviewCount": 52,
+      "provider": "FitLab Gym",
+      "description": "ออกแบบโปรแกรมออกกำลังกายเฉพาะบุคคล พร้อมประเมินร่างกายก่อนเริ่ม",
+      "imageUrl": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&q=80",
+      "durationMin": 60
+    },
+    {
+      "id": "4",
+      "name": "ปรึกษานักโภชนาการ",
+      "category": "nutrition",
+      "price": 500,
+      "rating": 4.5,
+      "reviewCount": 39,
+      "provider": "NutriCare",
+      "description": "วิเคราะห์พฤติกรรมการกิน และวางแผนมื้ออาหารให้เหมาะกับเป้าหมายสุขภาพ",
+      "imageUrl": "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1200&q=80",
+      "durationMin": 45
+    },
+    {
+      "id": "5",
+      "name": "สปาผ่อนคลายทั้งตัว",
+      "category": "spa",
+      "price": 900,
+      "rating": 4.9,
+      "reviewCount": 210,
+      "provider": "Serene Spa",
+      "description": "นวดน้ำมันอโรมาทั้งตัว ช่วยคลายกล้ามเนื้อและทำให้นอนหลับดีขึ้น",
+      "imageUrl": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80",
+      "durationMin": 90
+    },
+    {
+      "id": "6",
+      "name": "คลาสฟิตเนสกลุ่ม",
+      "category": "fitness",
+      "price": 250,
+      "rating": 4.4,
+      "reviewCount": 88,
+      "provider": "FitLab Gym",
+      "description": "คลาสคาร์ดิโอและเวทแบบกลุ่ม สนุก ได้เพื่อนใหม่ เหมาะกับทุกระดับ",
+      "imageUrl": "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=80",
+      "durationMin": 50
+    }
+  ],
+  "reviews": [
+    {
+      "id": "1",
+      "serviceId": "1",
+      "userName": "สมชาย ใจดี",
+      "rating": 5,
+      "comment": "ตรวจละเอียด พยาบาลใจดี ได้ผลเร็ว"
+    },
+    {
+      "id": "2",
+      "serviceId": "1",
+      "userName": "มาลี สุขสันต์",
+      "rating": 4,
+      "comment": "บริการดี แต่รอคิวนานนิดหนึ่ง"
+    },
+    {
+      "id": "3",
+      "serviceId": "2",
+      "userName": "ปิยะ แสงทอง",
+      "rating": 5,
+      "comment": "ครูสอนเข้าใจง่าย เหมาะกับมือใหม่"
+    },
+    {
+      "id": "4",
+      "serviceId": "5",
+      "userName": "วรรณา ศรีงาม",
+      "rating": 5,
+      "comment": "ผ่อนคลายมาก นอนหลับสบายขึ้น"
+    }
+  ],
+  "slots": [
+    {
+      "id": "1",
+      "serviceId": "1",
+      "date": "2026-10-20",
+      "times": [
+        "09:00",
+        "10:30",
+        "13:00"
+      ]
+    },
+    {
+      "id": "2",
+      "serviceId": "1",
+      "date": "2026-10-21",
+      "times": [
+        "09:00",
+        "10:30",
+        "13:00"
+      ]
+    },
+    {
+      "id": "3",
+      "serviceId": "1",
+      "date": "2026-10-22",
+      "times": [
+        "09:00",
+        "10:30",
+        "13:00"
+      ]
+    },
+    {
+      "id": "4",
+      "serviceId": "2",
+      "date": "2026-10-20",
+      "times": [
+        "07:00",
+        "09:00"
+      ]
+    },
+    {
+      "id": "5",
+      "serviceId": "3",
+      "date": "2026-10-21",
+      "times": [
+        "10:00",
+        "13:00",
+        "16:00"
+      ]
+    },
+    {
+      "id": "6",
+      "serviceId": "4",
+      "date": "2026-10-22",
+      "times": [
+        "09:30",
+        "11:00",
+        "14:00"
+      ]
+    },
+    {
+      "id": "7",
+      "serviceId": "5",
+      "date": "2026-10-20",
+      "times": [
+        "10:00",
+        "13:00",
+        "15:00"
+      ]
+    },
+    {
+      "id": "8",
+      "serviceId": "6",
+      "date": "2026-10-21",
+      "times": [
+        "17:00",
+        "18:30"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "1",
+      "domain": "sleep",
+      "title": "ด้านการนอน",
+      "question": "คุณนอนหลับพอและเป็นเวลาแค่ไหน",
+      "recommendationServiceId": "5"
+    },
+    {
+      "id": "2",
+      "domain": "exercise",
+      "title": "ด้านการออกกำลังกาย",
+      "question": "คุณออกกำลังกายอย่างน้อย 30 นาทีบ่อยแค่ไหน",
+      "recommendationServiceId": "3"
+    },
+    {
+      "id": "3",
+      "domain": "diet",
+      "title": "ด้านอาหาร",
+      "question": "คุณกินผัก ผลไม้ และอาหารที่มีประโยชน์บ่อยแค่ไหน",
+      "recommendationServiceId": "4"
+    },
+    {
+      "id": "4",
+      "domain": "stress",
+      "title": "ด้านความเครียด",
+      "question": "คุณรู้สึกผ่อนคลายและจัดการความเครียดได้บ่อยแค่ไหน",
+      "recommendationServiceId": "2"
+    },
+    {
+      "id": "5",
+      "domain": "social",
+      "title": "ด้านสังคม",
+      "question": "คุณได้พบปะพูดคุยกับเพื่อนหรือครอบครัวบ่อยแค่ไหน",
+      "recommendationServiceId": "6"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
